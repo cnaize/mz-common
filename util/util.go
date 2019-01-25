@@ -2,25 +2,35 @@ package util
 
 import (
 	"encoding/base64"
+	"fmt"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
 	"strings"
 )
 
-func DecodeInText(text string) string {
-	data, err := base64.URLEncoding.DecodeString(text)
-	if err != nil {
-		return "in text decode failed"
+const (
+	maxInStrLen = 128
+)
+
+func ParseInStr(str string) string {
+	if len(str) > maxInStrLen {
+		str = str[:maxInStrLen]
 	}
 
-	text = NormalizeText(string(data))
-
-	return text
+	return str
 }
 
-func EncodeOutText(text string) string {
-	text = NormalizeText(text)
-	return base64.URLEncoding.EncodeToString([]byte(text))
+func DecodeInStr(str string) string {
+	data, err := base64.URLEncoding.DecodeString(str)
+	if err != nil {
+		return fmt.Sprintf("Common: in text decode failed: %+v", err)
+	}
+
+	return string(data)
+}
+
+func EncodeOutStr(str string) string {
+	return base64.URLEncoding.EncodeToString([]byte(str))
 }
 
 // FROM HERE: https://rosettacode.org/wiki/Strip_control_codes_and_extended_characters_from_a_string#Go

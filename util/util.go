@@ -5,12 +5,32 @@ import (
 	"fmt"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
+	"math/rand"
 	"strings"
 )
 
 const (
+	letterBytes   = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	letterIdxBits = 6                    // 6 bits to represent a letter index
+	letterIdxMask = 1<<letterIdxBits - 1 // All 1-bits, as many as letterIdxBits
+
 	maxInStrLen = 128
 )
+
+func RandString(n int) string {
+	b := make([]byte, n)
+	for i := 0; i < n; {
+		if idx := int(rand.Int63() & letterIdxMask); idx < len(letterBytes) {
+			b[i] = letterBytes[idx]
+			i++
+		}
+	}
+	return string(b)
+}
+
+func GenerateXToken() string {
+	return RandString(32)
+}
 
 func ParseInStr(str string) string {
 	if len(str) > maxInStrLen {

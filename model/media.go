@@ -46,13 +46,13 @@ type MediaRootList struct {
 
 type MediaRequest struct {
 	Base
-	User        User   `json:"user"`
-	Owner       User   `json:"owner" form:"owner" binding:"required,dive"`
-	MediaID     uint   `json:"mediaID" form:"mediaID" binding:"required"` // core side media id, not center side
-	MediaRootID uint   `json:"rootID" form:"rootID" binding:"required"`
-	WebRTCKey   string `json:"webRTCKey" form:"webRTCKey" binding:"required"`
-	UserID      uint   `json:"-" form:"-"`
-	OwnerID     uint   `json:"-" form:"-"`
+	User      User   `json:"user"`
+	Owner     User   `json:"owner" form:"owner" binding:"required,dive"`
+	Media     Media  `json:"media" form:"media" binding:"required,dive"`
+	WebRTCKey string `json:"webRTCKey" form:"webRTCKey" binding:"required"`
+	UserID    uint   `json:"-" form:"-"`
+	OwnerID   uint   `json:"-" form:"-"`
+	MediaID   uint   `json:"-" form:"-"`
 }
 
 type MediaRequestList struct {

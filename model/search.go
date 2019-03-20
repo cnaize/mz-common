@@ -23,7 +23,7 @@ type SearchResponse struct {
 	Base
 	Owner           User  `json:"owner,omitempty" form:"owner" binding:"required"`
 	Media           Media `json:"media,omitempty" form:"media" binding:"required"`
-	UserID          uint  `json:"-" form:"-"`
+	UserID          uint  `json:"-" form:"-"` // actually this is owner.ID (done for db.Model().Related())
 	MediaID         uint  `json:"-" form:"-"`
 	SearchRequestID uint  `json:"-" form:"-"`
 }
